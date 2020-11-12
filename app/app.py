@@ -8,7 +8,6 @@ import json
 import clustering as clst
 import json_parser
 import topics_matcher
-#import top_trading_cycles as ttc
 
 def extract_users(req):
 	exper_data,users = ([],[])
@@ -52,16 +51,6 @@ def topic_matching():
 		input_parsed_model.topic_priorities_dict,
 		input_parsed_model.max_accepted_proposals)
 	return jsonify(assigned_topics_model.get_student_topic_matches())
-
-@app.route('/assign_tasks',methods=['POST']) #Add topic code here
-def ttctrading():
-	if not 'users' in flask.request.json or not 'teams' in flask.request.json or sum([not 'history' in user or not 'ranks' in user or not 'pid' in user for user in flask.request.json['users']]) > 0: #check for required fields in json request here
-		flask.abort(400)
-	users = extract_task_data(flask.request.json) #extract json data into necessary format
-	
-	#assignments = ttc.team_swap(users) #method where assignment algorithm is run
-	assignments = None
-	return send_assigned_tasks_as_json(assignments) #returning a flask response object
 
 if __name__ == "__main__":
 	app.run(debug=True)
