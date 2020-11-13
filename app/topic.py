@@ -9,7 +9,6 @@ class Topic:
         self.model = model        
         self.num_remaining_slots = self.model.p_ceil
         
-
     def propose(self,topic_remaining_slots):
         self.last_proposed += 1 # initialize
 
@@ -23,7 +22,7 @@ class Topic:
             # case 2: propose to assign topics to all students who need it.
             if(self.last_proposed <= len(self.priorities)):
                 self.proposals = self.priorities[self.last_proposed : len(self.priorities)]
-            self.last_proposed = len(self.priorities)-1
+            self.last_proposed = len(self.priorities)-1        
 
         for stud_id in self.proposals:
             # Add this topic to list of the student's proposals
@@ -37,7 +36,8 @@ class Topic:
         self.num_remaining_slots -= 1
 
     def is_proposing_complete(self):
-        print('Topic proposing complete: ',self.last_proposed >= len(self.priorities)-1)
+        print('Check completion: Topic last proposed: ',self.id, self.last_proposed)
+        print('Length of topics priorities: ',len(self.priorities)-1)
         return (self.last_proposed >= len(self.priorities)-1)
 
     def is_slots_remaining(self):

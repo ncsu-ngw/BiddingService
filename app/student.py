@@ -11,11 +11,17 @@ class Student:
 
     # Student receives a proposal from one of the topics
     def receive_proposal(self, topic_id):
-        print('Appending topic to students proposals: ',topic_id)
+        print('Appending topic to student '+str(self.id) +' proposals: '+str(topic_id))
         self.proposals.append(topic_id)
 
     def accept_proposal(self):
-        print('Student has choices- ',self.id, self.choices)
+        print('Student has choices- ',self.id, self.choices)        
+        temp = []
+        for x in self.proposals:
+            # Remove duplicates
+            if x not in temp:
+                temp.append(x)
+        self.proposals = temp
         # Sort the incoming topic proposals based on the students choice priorities and pick highest preference first
         self.proposals.sort(key=lambda proposal: self.choices.index(proposal))
         print('Student: sorted proposals are ',self.proposals) 

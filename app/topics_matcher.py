@@ -19,11 +19,9 @@ class TopicsMatcher:
         self.num_topics = len(self.topic_ids)
         if(self.num_topics==0):
             self.num_topics=1        
-        self.students = []
-        self.topics = []
         #Floor of average number of students assigned each topic.
         self.p_floor = math.floor(self.num_students * max_accepted_proposals/self.num_topics)
-        #Ceil of average number of students assigned each topic.
+        #Ceil of average number of students assigned each topic.        
         self.p_ceil = math.ceil(self.num_students * max_accepted_proposals/self.num_topics)
         print('floor: ',self.p_floor)
         print('ceil: ',self.p_ceil)
@@ -75,6 +73,7 @@ class TopicsMatcher:
                 for student in self.students:
                     student.accept_proposal()
                 if(self.is_topics_done_proposing() == True):
+                    print('Topic is done proposing')
                     round = 1
                     break
 
