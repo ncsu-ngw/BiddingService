@@ -1,49 +1,14 @@
 #!flask/bin/python
 from flask import Flask, jsonify,request
 import flask
-from user import User
-from team import Team
-import user
 import json
-import clustering as clst
 import json_parser
 import topics_matcher
 
-def extract_users(req):
-	exper_data,users = ([],[])
-	for user in req['users']:
-		exper_data.append([float(data) for data in user['ranks']])
-		if "history" in user:
-			users.append(User(exper_data[-1],user['pid'],user['history']))
-		else:
-			users.append(User(exper_data[-1],user['pid']))
-	return exper_data,users
-
-def send_teams_as_json(teams): #this method currently uses the classes defined for bidding
-	json_obj = [[user.pid for user in team.members] for team in teams]
-	return flask.Response(json.dumps({"teams":json_obj,"users":flask.request.json['users']}),  mimetype='application/json')
-	
-def extract_task_data(req):
-	#extract json data and convert to python object here
-	#do not necessarily have to use user class here, it is already defined if you would like to use it
-	return req
-	
-def send_assigned_tasks_as_json(tasks):
-	#convert python objects to simple maps and lists
-	return flask.Response(json.dumps({"info":tasks}))
-
 app = Flask(__name__)
 
-@app.route('/merge_teams',methods=['POST'])
-def clstbuild():
-    if not 'users' in flask.request.json or not 'max_team_size' in flask.request.json or sum([not 'ranks' in user or not 'pid' in user for user in flask.request.json['users']]) > 0:
-    	flask.abort(400)
-    data,users = extract_users(flask.request.json)
-    teams,users = clst.kmeans_assignment(data,users, flask.request.json['max_team_size'])
-    return send_teams_as_json(teams)
-
 @app.route('/match_topics',methods=['POST'])
-def topic_matching():
+def topic_matching():    
 	input_parsed_model = json_parser.JsonParser(request.json)
 	assigned_topics_model = topics_matcher.TopicsMatcher(input_parsed_model.student_ids,
 		input_parsed_model.topic_ids,
