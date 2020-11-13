@@ -5,6 +5,7 @@ import operator
 class JsonParser:
    
     def __init__(self,data):
+        print("Received json: ", data)
         self.input_data_dict = data
         self.topic_ids = self.input_data_dict['tid']
         self.input_data_dict['users'].keys()
