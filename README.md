@@ -18,33 +18,72 @@ The service can be copied from its github repository (https://github.com/peerlog
 Methods
 ------------------
 
-###Creating teams (/merge_teams):
-Uses K-means clustering to group users with similar topic interests. Works to eliminate competition for any single topic and increase the likelihood that each user obtains their most preferred topic. 
+###Creating teams (/match_topics):
+Uses Gale shapeley algorithm to assign topics to students based on their topic interests. Works to eliminate competition for any single topic and increase the likelihood that each user obtains their most preferred topic. When multiple users need a topic and 
 
 **Sample input and output**:
 
 -Input: 
 ```
-{"users":[{"ranks":[1,0,2,3], "pid":1023},{"ranks":[1,2,0,3], "pid":4535},{"ranks":[0,2,3,1], "pid":1363},{"ranks":[2,1,0,3], "pid":9841}],"max_team_size":4}
+{
+  "tid": [
+    1234,
+    1235,
+    1236,
+    1237,
+    1238,
+    1239
+  ],
+  "users": {
+      "123": {
+              
+        "tid": [
+            1234,1236,1237,1235
+        ],
+        "otid": [
+            1237
+            ],        
+        "priority": [2,1,3,4],
+        "time": ["2012-12-15 01:21:10",
+                "2012-12-15 01:21:12",
+                "2012-12-15 01:21:14",
+                "2012-12-15 01:21:16"
+        ]
+       } ,
+        "124": {
+              
+        "tid": [
+            1234,1237,1239,1235
+        ],
+        "otid": [
+            1238
+            ],    
+        "priority": [3,2,1,4],
+        "time": ["2012-12-15 01:21:11",
+                "2012-12-15 01:21:13",
+                "2012-12-15 01:21:15",
+                "2012-12-15 01:21:17"
+        ]
+       } 
+  },
+  "max_accepted_proposals": 3
+}
 ```
 
 -Output: 
 ```
-{"users": [{"ranks": [1,0,2,3],"pid": 1023},{"ranks": [1,2,0,3],"pid": 4535},{"ranks": [0,2,3,1],"pid": 1363},{"ranks": [2,1,0,3],"pid": 9841}],"teams": [[1363,9841],[1023,4535]]}
-```
-
-###Swapping Team Members (/swap_team_members):
-Uses Top Trading Cycles to swap members, that have already worked with members on their team, with other teams' members. This method only swaps a max of one member per team per run. Begins by first sorting the list of available members by distance from the teams centroid and then by whether or not other members of the team have worked with them. This method requires a history of users that each user has worked with, along with the general information.
-
-**Sample input and output**:
-
--Input: 
-```
-{"users":[{"ranks":[1,0,2,3], "history":[4535,9841,9843], "pid":1023},{"ranks":[1,2,0,3], "history":[1023,9843,8542], "pid":4535},{"ranks":[0,2,3,1], "history":[3649,9841,9843], "pid":1363},{"ranks":[2,1,0,3], "history":[1363,1023,3649], "pid":9841}],"teams": [[1023,2549],[4535,9843],[1363,1867,3649],[9841,8542,7521]]} 
-```
--Output:
-```
-{"users": [{"ranks": [1, 0, 2, 3], "pid": 1023, "history": [4535, 9841, 9843]}, {"ranks": [1, 2, 0, 3], "pid": 4535, "history": [1023, 9843, 8542]}, {"ranks": [0, 2, 3, 1], "pid": 1363, "history": [3649, 9841, 9843]}, {"ranks": [2, 1, 0, 3], "pid": 9841, "history": [1363, 1023, 3649]}], "teams": [[9841, 4535], [1023, 1363]]}
+{
+    "123": [
+        1234,
+        1235,
+        1236
+    ],
+    "124": [
+        1234,
+        1235,
+        1237
+    ]
+}
 ```
 
 Client Code Example
