@@ -8,7 +8,7 @@ import topics_matcher
 app = Flask(__name__)
 
 @app.route('/match_topics',methods=['POST'])
-def topic_matching():    
+def topic_matching():
 	input_parsed_model = json_parser.JsonParser(request.json)
 	assigned_topics_model = topics_matcher.TopicsMatcher(input_parsed_model.student_ids,
 		input_parsed_model.topic_ids,

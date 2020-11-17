@@ -1,8 +1,7 @@
 import math
-import random
-import json
 from student import Student
 from topic import Topic
+import logging
 
 class TopicsMatcher:
     def __init__(self,student_ids,topic_ids,student_priorities_map,
@@ -17,14 +16,11 @@ class TopicsMatcher:
         self.max_accepted_proposals = max_accepted_proposals
         self.num_students = len(self.student_ids)
         self.num_topics = len(self.topic_ids)
+        self.student_priorities_dict = student_priorities_map
         if(self.num_topics==0):
-            self.num_topics=1        
-        #Floor of average number of students assigned each topic.
-        self.p_floor = math.floor(self.num_students * max_accepted_proposals/self.num_topics)
+            self.num_topics=1                
         #Ceil of average number of students assigned each topic.        
-        self.p_ceil = math.ceil(self.num_students * max_accepted_proposals/self.num_topics)
-        print('floor: ',self.p_floor)
-        print('ceil: ',self.p_ceil)
+        self.max_topic_assignment_limit = math.ceil(self.num_students * max_accepted_proposals/self.num_topics)        
 
         self.students = list(map(lambda student_id: Student(self,student_id,
                         student_priorities_map[student_id]), student_ids))
@@ -53,27 +49,24 @@ class TopicsMatcher:
         round = 1
 
         # Round 1: Topics make their proposals to Students and Students accept proposals upto the limit of topics
-        # they can accept.
-        print('Round: ',round)
+        # they can accept.        
         for topic in self.topics:
-            topic.propose(self.p_ceil)
+            topic.propose(self.max_topic_assignment_limit)
 
         for student in self.students:
             student.accept_proposal()
 
         #   The Algorithm repeats for more rounds.
         #   It stops when every topic that has not reached the
-        #   maximum quota p_ceil has proposed acceptance to every student.
+        #   maximum quota max_topic_assignment_limit has proposed acceptance to every student.
         if(self.is_topics_done_proposing() == False):
             for _ in iter(int,1):
-                round += 1
-                print('Round: ',round)
+                round += 1                
                 for topic in self.topics:   
                     topic.propose(topic_remaining_slots = topic.num_remaining_slots)
                 for student in self.students:
                     student.accept_proposal()
-                if(self.is_topics_done_proposing() == True):
-                    print('Topic is done proposing')
+                if(self.is_topics_done_proposing() == True):                    
                     round = 1
                     break
 
