@@ -42,7 +42,8 @@ class JsonParser:
                     # Check if student already choose a topic and remove it from priorities list
                     all_topics.remove(topic_already_chosen)
                 all_topics.append(topic_already_chosen)
-                student_priorities_dict[student_id] = all_topics 
+                student_priorities_dict[student_id] = []
+                student_priorities_dict[student_id] += all_topics
                 self.input_data_dict["users"][student_id]["priority"] = random.sample(range(1, len(student_priorities_dict[student_id])+1), len(student_priorities_dict[student_id]))
                 self.input_data_dict["users"][student_id]["time"] = [0]
             else:
