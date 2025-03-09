@@ -12,7 +12,7 @@ setup(
         "Flask>=2.2",
     ],
     classifiers=[
-        "Programming Language :: Python :: 3",,
+        "Programming Language :: Python :: 3",
     ],
     entry_points={
         "console_scripts": [
