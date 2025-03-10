@@ -1,6 +1,6 @@
 import math
-from student import Student
-from topic import Topic
+from .student import Student
+from .topic import Topic
 import logging
 
 class TopicsMatcher:
