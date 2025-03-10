@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
-import json_parser
-import topics_matcher
+import .json_parser
+import .topics_matcher
 
 
 app = Flask(__name__)
