@@ -31,6 +31,11 @@ class JsonParser:
                 users[sid]["tid"].append(tid)
                 users[sid]["priority"].append(priority)
                 users[sid]["time"].append(timestamp)
+            # If 'otids' exist, merge them into each user's data.
+            if "otids" in data:
+                for sid, otid in data["otids"].items():
+                    if sid in users:
+                        users[sid]["otid"] = otid
             return {
                 "users": users,
                 "tid": list(all_topics),
