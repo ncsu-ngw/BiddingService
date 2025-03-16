@@ -1,0 +1,30 @@
+{
+    "tid": [4427, 4428, 4429, 4430],
+    "users": {
+      "40763": {
+        "bids": [
+          { "tid": 4430, "priority": 1, "timestamp": "Sun, 15 Nov 2020 17:16:51 EST -05:00" },
+          { "tid": 4427, "priority": 3, "timestamp": "Sun, 15 Nov 2020 17:16:52 EST -05:00" },
+          { "tid": 4428, "priority": 2, "timestamp": "Sun, 15 Nov 2020 17:16:53 EST -05:00" }
+        ],
+        "otid": 4429
+      },
+      "40764": {
+        "bids": [
+          { "tid": 4429, "priority": 3, "timestamp": "Sun, 15 Nov 2020 17:16:34 EST -05:00" },
+          { "tid": 4430, "priority": 2, "timestamp": "Sun, 15 Nov 2020 17:16:35 EST -05:00" },
+          { "tid": 4428, "priority": 1, "timestamp": "Sun, 15 Nov 2020 17:16:37 EST -05:00" }
+        ],
+        "otid": 4427
+      },
+      "40765": {
+        "bids": [
+          { "tid": 4427, "priority": 3, "timestamp": "Sun, 15 Nov 2020 17:17:15 EST -05:00" },
+          { "tid": 4430, "priority": 2, "timestamp": "Sun, 15 Nov 2020 17:17:16 EST -05:00" },
+          { "tid": 4429, "priority": 1, "timestamp": "Sun, 15 Nov 2020 17:17:17 EST -05:00" }
+        ],
+        "otid": 4428
+      }
+    },
+    "max_accepted_proposals": 3
+  }
