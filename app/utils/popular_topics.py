@@ -10,5 +10,4 @@ def calculate_popular_topics(student_ids, input_data_dict, topic_lists):
             chosen_topic_ids = user_data.get("tid", [])
         topic_lists += chosen_topic_ids
     topics_counts = Counter(topic_lists)
-    print(topics_counts)
     return topics_counts
