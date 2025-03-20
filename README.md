@@ -10,7 +10,7 @@ This service is hosted at: [http://152.7.178.10:8080/match_topics](http://152.7.
         - You can use: \
                 - curl \
                 - Postman \
-                - Your preferred programming language \
+                - Your preferred programming language!
 
 ###2) Run it on your local machine
 The service can be copied from its github repository (https://github.com/ncsu-ngw/BiddingService). It should be deployed as a webservice; though, it will also require the python library flask
