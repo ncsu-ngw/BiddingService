@@ -1,17 +1,15 @@
-#Intelligent Assignment
+# Bidding Service
 
-Intelligent assignment assigns review topics to students based off of each individual users ranking of topic preference. The service requires topic ids [tid], as well as the max number of topics per student.
+The student Bidding Service assigns review topics to students based off of each individual users ranking of topic preference. The service requires topic ids [tid], as well as the max number of topics per student.
 
 Accessing the service
 ------------------
 
 ###1) Access the Webservice online
-This service is hosted at: https://app-csc517.herokuapp.com/[match_topics]. This service can be called without copying the code onto your local machine, simply make a post request to this url with one of the method names mentioned below. 
+This service is hosted at: [http://152.7.178.10:8080/match_topics](http://152.7.178.10:8080/match_topics). This service can be called without copying the code onto your local machine, simply make a post request to this url with one of the method names mentioned below. 
 
 ###2) Run it on your local machine
-The service can be copied from its github repository (https://github.com/uahamedncsu/IntelligentAssignment). It should be deployed as a webservice; though, it will also require the python libraries flask and scipy:
-
--[Scipy](https://www.scipy.org/scipylib/download.html)
+The service can be copied from its github repository (https://github.com/ncsu-ngw/BiddingService). It should be deployed as a webservice; though, it will also require the python library flask
 
 -[Flask](https://pypi.python.org/pypi/Flask)
 
@@ -25,34 +23,47 @@ Uses Gale shapeley algorithm to assign topics to students based on their topic i
 
 -Input: 
 ```
-{"tid":[4427,4428,4429,4430],"users":
-{"40763":{"tid":[4430,4427,4428],"otid":4429,"priority":[1,3,2],"time":["2020-11-15T17:16:51.000-05:00","2020-11-15T17:16:52.000-05:00",       "2020-11-15T17:16:53.000-05:00"]},
-"40764":{"tid":[4429,4430,4428],"otid":4427,"priority":[3,2,1],"time":["2020-11-15T17:16:34.000-05:00","2020-11-15T17:16:35.000-05:00","2020-11-15T17:16:37.000-05:00"]},
-"40765":{"tid":[4427,4430,4429],"otid":4428,"priority":[3,2,1],"time":["2020-11-15T17:17:15.000-05:00","2020-11-15T17:17:16.000-05:00",   "2020-11-15T17:17:17.000-05:00"]}},
-"max_accepted_proposals":3}
+{
+        "tid": [4427, 4428, 4429, 4430],
+        "users": {
+            "40763": {
+                "bids": [
+                    { "tid": 4430, "priority": 1, "timestamp": "Sun, 15 Nov 2020 17:16:51 EST -05:00" },
+                    { "tid": 4427, "priority": 3, "timestamp": "Sun, 15 Nov 2020 17:16:52 EST -05:00" },
+                    { "tid": 4428, "priority": 2, "timestamp": "Sun, 15 Nov 2020 17:16:53 EST -05:00" }
+                ],
+                "otid": 4429
+            },
+            "40764": {
+                "bids": [
+                    { "tid": 4429, "priority": 3, "timestamp": "Sun, 15 Nov 2020 17:16:34 EST -05:00" },
+                    { "tid": 4430, "priority": 2, "timestamp": "Sun, 15 Nov 2020 17:16:35 EST -05:00" },
+                    { "tid": 4428, "priority": 1, "timestamp": "Sun, 15 Nov 2020 17:16:37 EST -05:00" }
+                ],
+                "otid": 4427
+            },
+            "40765": {
+                "bids": [
+                    { "tid": 4427, "priority": 3, "timestamp": "Sun, 15 Nov 2020 17:17:15 EST -05:00" },
+                    { "tid": 4430, "priority": 2, "timestamp": "Sun, 15 Nov 2020 17:17:16 EST -05:00" },
+                    { "tid": 4429, "priority": 1, "timestamp": "Sun, 15 Nov 2020 17:17:17 EST -05:00" }
+                ],
+                "otid": 4428
+            }
+        },
+        "max_accepted_proposals": 3
+    }
 ```
 
 -Output: 
 ```
-Assigned Topics to Students:
 {
-    "40763": [
-        4427,
-        4428,
-        4430
-    ],
-    "40764": [
-        4428,
-        4429,
-        4430
-    ],
-    "40765": [
-        4427,
-        4429,
-        4430
-    ]
-}
+        "40763": [4430, 4428, 4427],
+        "40764": [4428, 4430, 4429],
+        "40765": [4429, 4430, 4427]
+    }
 ```
+which are the assigned topics to the students based on the student id provided.
 
 Client Code Example
 ------------------
@@ -63,8 +74,37 @@ import requests
 import json
 
 #Test data
-data = json.dumps({"tid":[4427,4428,4429,4430],"users":{"40763":{"tid":[4430,4427,4428],"otid":4429,"priority":[1,3,2],"time":["2020-11-15T17:16:51.000-05:00","2020-11-15T17:16:52.000-05:00","2020-11-15T17:16:53.000-05:00"]},"40764":{"tid":[4429,4430,4428],"otid":4427,"priority":[3,2,1],"time":["2020-11-15T17:16:34.000-05:00","2020-11-15T17:16:35.000-05:00","2020-11-15T17:16:37.000-05:00"]},"40765":{"tid":[4427,4430,4429],"otid":4428,"priority":[3,2,1],"time":["2020-11-15T17:17:15.000-05:00","2020-11-15T17:17:16.000-05:00","2020-11-15T17:17:17.000-05:00"]}},"max_accepted_proposals":3})
+data = json.dumps({
+        "tid": [4427, 4428, 4429, 4430],
+        "users": {
+            "40763": {
+                "bids": [
+                    { "tid": 4430, "priority": 1, "timestamp": "Sun, 15 Nov 2020 17:16:51 EST -05:00" },
+                    { "tid": 4427, "priority": 3, "timestamp": "Sun, 15 Nov 2020 17:16:52 EST -05:00" },
+                    { "tid": 4428, "priority": 2, "timestamp": "Sun, 15 Nov 2020 17:16:53 EST -05:00" }
+                ],
+                "otid": 4429
+            },
+            "40764": {
+                "bids": [
+                    { "tid": 4429, "priority": 3, "timestamp": "Sun, 15 Nov 2020 17:16:34 EST -05:00" },
+                    { "tid": 4430, "priority": 2, "timestamp": "Sun, 15 Nov 2020 17:16:35 EST -05:00" },
+                    { "tid": 4428, "priority": 1, "timestamp": "Sun, 15 Nov 2020 17:16:37 EST -05:00" }
+                ],
+                "otid": 4427
+            },
+            "40765": {
+                "bids": [
+                    { "tid": 4427, "priority": 3, "timestamp": "Sun, 15 Nov 2020 17:17:15 EST -05:00" },
+                    { "tid": 4430, "priority": 2, "timestamp": "Sun, 15 Nov 2020 17:17:16 EST -05:00" },
+                    { "tid": 4429, "priority": 1, "timestamp": "Sun, 15 Nov 2020 17:17:17 EST -05:00" }
+                ],
+                "otid": 4428
+            }
+        },
+        "max_accepted_proposals": 3
+    })
 header = {'content-type': 'application/json'}
-response = requests.post("http://127.0.0.1:5000/match_topics",data= data,headers=header)
+response = requests.post("http://152.7.178.10:8080/match_topics",data= data,headers=header)
 print response.text
 ```
