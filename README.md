@@ -6,7 +6,11 @@ Accessing the service
 ------------------
 
 ###1) Access the Webservice online
-This service is hosted at: [http://152.7.178.10:8080/match_topics](http://152.7.178.10:8080/match_topics). This service can be called without copying the code onto your local machine, simply make a post request to this url with one of the method names mentioned below. 
+This service is hosted at: [http://152.7.178.10:8080/match_topics](http://152.7.178.10:8080/match_topics). This service can be called without copying the code onto your local machine, simply make a post request to this url.
+        - You can use:
+                - curl
+                - Postman
+                - Your preferred programming language
 
 ###2) Run it on your local machine
 The service can be copied from its github repository (https://github.com/ncsu-ngw/BiddingService). It should be deployed as a webservice; though, it will also require the python library flask
