@@ -10,6 +10,7 @@ This service is hosted at: [http://152.7.178.10:8080/match_topics](http://152.7.
         - You can use: \
                 - curl \
                 - Postman \
+                ![image](https://github.com/user-attachments/assets/51cf9a54-4055-47a2-8e07-5a4a17077933)
                 - Your preferred programming language!
 
 ###2) Run it on your local machine
