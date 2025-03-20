@@ -8,7 +8,10 @@ class Topic:
         self.priorities = priorities
         self.model = model        
         self.num_remaining_slots = self.model.max_topic_assignment_limit
-        self.topics_limit = self.num_remaining_slots        
+        self.topics_limit = self.num_remaining_slots
+        self.proposals = []
+        self.accepted_proposals = []
+        self.last_proposed = -1        
         
     def propose(self,topic_remaining_slots):
         self.last_proposed += 1 # initialize

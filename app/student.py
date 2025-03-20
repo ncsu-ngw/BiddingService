@@ -8,6 +8,8 @@ class Student:
         self.id = id 
         self.choices = choices        
         self.num_remaining_slots = self.model.max_accepted_proposals
+        self.proposals = []
+        self.accepted_proposals = []
 
     # Student receives a proposal from one of the topics
     def receive_proposal(self, topic_id):        
