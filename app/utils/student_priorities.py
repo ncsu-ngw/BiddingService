@@ -1,11 +1,11 @@
 import random
 import email.utils
-
+# processes student IDs and assigns each student a list of topic IDs sorted by priority.
 def create_student_priorities(student_ids, json_dict):
     student_priorities_dict = {}
     for student_id in student_ids:
         user_data = json_dict["users"][student_id]
-        # check for non empty bids data
+        # Check for non empty bids data
         if "bids" in user_data and user_data["bids"]:
             bids = user_data["bids"]
             sorted_bids = sorted(bids, key=lambda bid: bid["priority"])
@@ -17,7 +17,7 @@ def create_student_priorities(student_ids, json_dict):
         else:
             chosen_topic_ids = []
         if not chosen_topic_ids:
-            # randomly assign if the student didn't put in any bids
+            # Randomly assign if the student didn't put in any bids
             all_topics = list(json_dict["tid"])
             random.shuffle(all_topics)
             student_priorities_dict[student_id] = all_topics
@@ -28,11 +28,11 @@ def create_student_priorities(student_ids, json_dict):
                 priorities = user_data.get("priority")
                 if priorities is None:
                     raise ValueError(f"Student {student_id} is missing priority field")
-                # concats priorities and chosen topic ids into a single array of tuples
+                # Concats priorities and chosen topic ids into a single array of tuples
                 sorted_topics = [topic for _, topic in sorted(zip(priorities, chosen_topic_ids))]
             student_priorities_dict[student_id] = sorted_topics
             unchosen_topic_ids = list(set(json_dict["tid"]) - set(chosen_topic_ids))
-            # remaining topic ids
+            # Remaining topic ids
             random.shuffle(unchosen_topic_ids)
             student_priorities_dict[student_id] += unchosen_topic_ids
             if "otid" in user_data:

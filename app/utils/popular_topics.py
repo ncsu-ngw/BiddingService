@@ -1,5 +1,8 @@
 from collections import Counter
 
+# This function agthers the chosen topic IDs by the list of Students
+# It then counts how many times a topic has been bid on
+# Then it returns a dictionary of topics with how many bids it has such as {77: 2, 44: 4}
 def calculate_popular_topics(student_ids, input_data_dict, topic_lists):
     topics_counts = Counter()
     for student_id in student_ids:
