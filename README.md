@@ -6,7 +6,7 @@ Accessing the service
 ------------------
 
 ###1) Access the Webservice online
-This service is hosted at: [http://152.7.178.10:8080/match_topics](http://152.7.178.10:8080/match_topics). This service can be called without copying the code onto your local machine, simply make a post request to this url. \
+This service is hosted at: [http://152.7.177.36:8080/match_topics](http://152.7.177.36:8080/match_topics). This service can be called without copying the code onto your local machine, simply make a post request to this url. \
         - You can use: \
                 - curl \
                 - Postman \
@@ -110,6 +110,6 @@ data = json.dumps({
         "max_accepted_proposals": 3
     })
 header = {'content-type': 'application/json'}
-response = requests.post("http://152.7.178.10:8080/match_topics",data= data,headers=header)
+response = requests.post("http://152.7.177.36:8080/match_topics",data= data,headers=header)
 print response.text
 ```
