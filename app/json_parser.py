@@ -14,7 +14,7 @@ class JsonParser:
         self.topic_lists = []
         # Find the number of times each topic has been bidded on
         self.topic_counts = calculate_popular_topics(self.student_ids, self.input_data_dict, self.topic_lists)
-        # aps each student to their prioritized list
+        # maps each student to their prioritized list
         self.student_priorities_dict = create_student_priorities(self.student_ids, self.input_data_dict)
         # Creates a list of student IDs for each topic based on priority, num topics, and timestamps
         self.topic_priorities_dict = create_topic_priorities(self.topic_ids, self.student_ids, self.student_priorities_dict, self.input_data_dict)
